@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
-import GroupCard from "./components/GroupCard/GroupCard";
+import GroupList from "./components/Group/GroupList";
 
 export default function Home() {
   return (
@@ -9,9 +9,8 @@ export default function Home() {
       <Header />
       <div className="flex flex-1">
         <NavBar />
-        <main>test
-
-          <GroupCard></GroupCard>
+        <main>
+          <GroupList />
         </main>
       </div>
     </div>
