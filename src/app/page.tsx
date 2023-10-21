@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Header from "./components/Header";
-import NavBar from "./components/NavBar";
-import GroupList from "./components/Group/GroupList";
+import Header from "../components/Header";
+import NavBar from "../components/NavBar";
+import GroupList from "../components/Group/GroupList";
 import { Box, Container, Grid } from "@mui/material";
 
 export default function Home() {
