@@ -6,7 +6,7 @@ export default function Home() {
     <>
       Join Group
       <Link href="/group">
-        <Button variant='outlined'>search groups</Button>
+        <Button variant="outlined">search groups</Button>
       </Link>
     </>
   );
