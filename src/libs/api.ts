@@ -12,9 +12,16 @@ const createEndpoint = (endpoint: string): string => {
   return baseURL + endpoint;
 };
 
+const createHeaders = () => {
+  return {
+    Authorization: 'TODO set token',
+  };
+};
+
 export const get = async (endpoint: string) => {
   try {
-    const response = await apiClient.get(createEndpoint(endpoint));
+    const headers = createHeaders();
+    const response = await apiClient.get(createEndpoint(endpoint, { headers }));
     return response.data;
   } catch (error) {
     console.error('get error:', error);
@@ -23,7 +30,10 @@ export const get = async (endpoint: string) => {
 
 export const post = async (endpoint: string, data: any) => {
   try {
-    const response = await apiClient.post(createEndpoint(endpoint), data);
+    const headers = createHeaders();
+    const response = await apiClient.post(createEndpoint(endpoint), data, {
+      headers,
+    });
     return response.data;
   } catch (error) {
     console.error('post error:', error);
