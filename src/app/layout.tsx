@@ -1,6 +1,9 @@
+import { Box, Container } from '@mui/material';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Header from '@/components/Header';
+import NavBar from '@/components/NavBar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,7 +19,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+          <Header />
+
+          <Box sx={{ display: 'flex', flex: 1 }}>
+            <NavBar />
+            <Container
+              sx={{
+                margin: '20px 0',
+                display: 'flex',
+                flex: 1,
+                flexDirection: 'column',
+              }}
+            >
+              {children}
+            </Container>
+          </Box>
+        </Box>
+      </body>
     </html>
   );
 }
