@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-const baseURL = "http://localhost:8000";
+const baseURL = 'http://localhost:8000';
 
 const apiClient = axios.create({
   baseURL,
@@ -8,7 +8,7 @@ const apiClient = axios.create({
 });
 
 const createEndpoint = (endpoint: string): string => {
-  if (endpoint.startsWith("http")) return endpoint;
+  if (endpoint.startsWith('http')) return endpoint;
   return baseURL + endpoint;
 };
 
@@ -17,7 +17,7 @@ export const get = async (endpoint: string) => {
     const response = await apiClient.get(createEndpoint(endpoint));
     return response.data;
   } catch (error) {
-    console.error("get error:", error);
+    console.error('get error:', error);
   }
 };
 
@@ -26,6 +26,6 @@ export const post = async (endpoint: string, data: any) => {
     const response = await apiClient.post(createEndpoint(endpoint), data);
     return response.data;
   } catch (error) {
-    console.error("post error:", error);
+    console.error('post error:', error);
   }
 };

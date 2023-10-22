@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import * as api from "@/libs/api";
+import { useEffect, useState } from 'react';
+import * as api from '@/libs/api';
 
 const useGroups = () => {
   const [groups, setGroups] = useState([]);
@@ -9,7 +9,7 @@ const useGroups = () => {
     const fetchGroups = async () => {
       try {
         // TODO change to the correct endpoint
-        const groups = await api.get("/group");
+        const groups = await api.get('/group');
         setGroups(groups);
         setLoading(false);
       } catch (e) {

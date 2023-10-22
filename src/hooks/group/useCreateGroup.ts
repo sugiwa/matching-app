@@ -1,26 +1,26 @@
-import * as api from "@/libs/api";
-import { useState, useTransition } from "react";
+import * as api from '@/libs/api';
+import { useState, useTransition } from 'react';
 
 type CreateGroupState =
   | {
-      status: "initial";
+      status: 'initial';
       error: undefined;
     }
   | {
-      status: "loading";
+      status: 'loading';
       error?: any;
     }
   | {
-      status: "success";
+      status: 'success';
       error: undefined;
     }
   | {
-      status: "failed";
+      status: 'failed';
       error: any;
     };
 
 const initialState: CreateGroupState = {
-  status: "initial",
+  status: 'initial',
   error: undefined,
 };
 
@@ -30,18 +30,18 @@ const useCreateGroup = () => {
 
   const createGroup = async (name: string) => {
     startTransition(() => {
-      setState((prev) => ({ ...prev, status: "loading" }));
+      setState((prev) => ({ ...prev, status: 'loading' }));
     });
 
     try {
-      const response = await api.post("/group", { name });
+      const response = await api.post('/group', { name });
       startTransition(() => {
-        setState({ status: "success", error: undefined });
+        setState({ status: 'success', error: undefined });
       });
       return response;
     } catch (error) {
       startTransition(() => {
-        setState({ status: "failed", error });
+        setState({ status: 'failed', error });
       });
     }
   };
