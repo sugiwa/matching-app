@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Header from '@/components/Header';
 import NavBar from '@/components/NavBar';
+import CustomProvider from '@/providers/CustomProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,23 +21,27 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
-          <Header />
+        <CustomProvider>
+          <Box
+            sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}
+          >
+            <Header />
 
-          <Box sx={{ display: 'flex', flex: 1 }}>
-            <NavBar />
-            <Container
-              sx={{
-                margin: '20px 0',
-                display: 'flex',
-                flex: 1,
-                flexDirection: 'column',
-              }}
-            >
-              {children}
-            </Container>
+            <Box sx={{ display: 'flex', flex: 1 }}>
+              <NavBar />
+              <Container
+                sx={{
+                  margin: '20px 0',
+                  display: 'flex',
+                  flex: 1,
+                  flexDirection: 'column',
+                }}
+              >
+                {children}
+              </Container>
+            </Box>
           </Box>
-        </Box>
+        </CustomProvider>
       </body>
     </html>
   );
