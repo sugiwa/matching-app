@@ -1,11 +1,25 @@
 'use client';
-import { Box, Button } from '@mui/material';
+import {
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+} from '@mui/material';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import NoImage from 'public/no_image.png';
+import { useState } from 'react';
 
 const AccountStatus = () => {
+  const router = useRouter();
   const { data: session, status } = useSession();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
   if (status != 'authenticated') {
     return (
       <Link href="/api/auth/signin">
@@ -14,21 +28,29 @@ const AccountStatus = () => {
     );
   }
 
-  const image = session.user?.image;
+  const handleClick = (event: React.MouseEvent<HTMLElement>) =>
+    setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
+
+  const signout = () => router.push('/api/auth/signout');
+
+  const image = session.user?.image || NoImage;
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      {image && (
+      <IconButton onClick={handleClick} sx={{ p: 0, mx: '10px' }}>
         <Image
           src={image}
           width={40}
           height={40}
           alt="profile image"
-          className="rounded-full mx-3"
+          className="rounded-full"
         />
-      )}
-      <Link href="/api/auth/signout">
-        <Button variant="outlined">Sign Out</Button>
-      </Link>
+      </IconButton>
+      <Menu open={open} anchorEl={anchorEl} onClose={handleClose}>
+        <MenuItem onClick={signout}>
+          <Typography>Sign Out</Typography>
+        </MenuItem>
+      </Menu>
     </Box>
   );
 };
