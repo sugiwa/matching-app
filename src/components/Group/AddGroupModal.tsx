@@ -21,7 +21,7 @@ const AddGroupModal = ({ isOpen, onClose }: Props) => {
 
   const { state, createGroup, isPending } = useCreateGroup();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: GroupInputs) => {
     console.log(data);
     try {
       const { name } = data;
