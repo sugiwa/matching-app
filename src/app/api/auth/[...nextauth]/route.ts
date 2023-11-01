@@ -14,6 +14,20 @@ const option: NextAuthOptions = {
     //   clientSecret: process.env.GOOGLE_SECRET,
     // }),
   ],
+  callbacks: {
+    session: async ({ session, token }) => {
+      return Promise.resolve({
+        ...session,
+        accessToken: token,
+      });
+    },
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token.userId = user.id;
+      }
+      return token;
+    },
+  },
 };
 
 const handler = NextAuth(option);
