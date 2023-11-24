@@ -2,6 +2,7 @@ import NextAuth from 'next-auth/next';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import { NextAuthOptions } from 'next-auth';
+import { post } from '@/libs/api';
 
 const option: NextAuthOptions = {
   debug: true,
@@ -16,6 +17,22 @@ const option: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    signIn: async ({ user, account, profile }) => {
+      const { provider, id_token } = account ?? {};
+      const secret: string = process.env.NEXTAUTH_SECRET ?? '';
+
+      try {
+        const authInfo = await post(
+          `/oauth/${provider}`,
+          {},
+          { ['oauth-token']: id_token },
+        );
+        console.log('authInfo', authInfo)
+      } catch (e) {
+        console.log(e);
+      }
+      return true;
+    },
     session: async ({ session, token }) => {
       return Promise.resolve({
         ...session,
