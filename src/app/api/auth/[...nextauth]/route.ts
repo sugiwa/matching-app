@@ -18,6 +18,7 @@ const option: NextAuthOptions = {
   ],
   callbacks: {
     signIn: async ({ user, account, profile }) => {
+      const userObj = user as any;
       const { provider, id_token } = account ?? {};
       const secret: string = process.env.NEXTAUTH_SECRET ?? '';
 
@@ -27,7 +28,8 @@ const option: NextAuthOptions = {
           {},
           { ['oauth-token']: id_token },
         );
-        console.log('authInfo', authInfo)
+        const { accessToken } = authInfo;
+        userObj.customToken = accessToken;
       } catch (e) {
         console.log(e);
       }
@@ -41,7 +43,9 @@ const option: NextAuthOptions = {
     },
     jwt: async ({ token, user }) => {
       if (user) {
-        token.userId = user.id;
+        const userObj = user as any
+        token.userId = userObj.id;
+        token.customToken = userObj.customToken;
       }
       return token;
     },
